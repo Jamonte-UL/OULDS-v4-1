@@ -1,0 +1,25 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "color": {
+    "brand": {
+      "primary":   { "$value": "{color.blue.500}", "$type": "color" },
+      "secondary": { "$value": "{color.blue.700}", "$type": "color" }
+    },
+    "text": {
+      "default": { "$value": "{color.neutral.900}", "$type": "color" },
+      "muted":   { "$value": "{color.neutral.500}", "$type": "color" },
+      "inverse": { "$value": "{color.neutral.0}",   "$type": "color" }
+    },
+    "background": {
+      "default": { "$value": "{color.neutral.0}",   "$type": "color" },
+      "subtle":  { "$value": "{color.neutral.100}", "$type": "color" }
+    },
+    "border": {
+      "default": { "$value": "{color.neutral.300}", "$type": "color" }
+    }
+  },
+  "spacing": {
+    "component-gap":     { "$value": "{spacing.4}", "$type": "dimension" },
+    "component-padding": { "$value": "{spacing.3}", "$type": "dimension" }
+  }
+}

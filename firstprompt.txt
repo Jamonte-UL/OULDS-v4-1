@@ -1,0 +1,12 @@
+I want to modernize an existing design system used in a large enterprise. I don't have the codebase 
+in front of me yet, so treat this as a greenfield rebuild informed by what 
+I know about the current system.
+
+Here's what I know about the existing system:
+- Built in stencil, component styles are 2 tier token system
+- needs to be framework-agnostic going forward
+- Figma designs exist but are disconnected from code
+
+Before writing anything, interview me on the key decisions — stack, token 
+pipeline, build tooling — and explain the trade-offs at each step. 
+Don't scaffold until we've agreed on direction.

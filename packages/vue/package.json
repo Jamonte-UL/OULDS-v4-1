@@ -1,0 +1,24 @@
+{
+  "name": "@oulds/vue",
+  "version": "0.1.0",
+  "description": "Vue wrappers for the Oulds design system",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@oulds/components": "workspace:*"
+  },
+  "peerDependencies": {
+    "vue": ">=3"
+  },
+  "devDependencies": {
+    "@stencil/vue-output-target": "^0.8.0",
+    "@vue/runtime-core": "^3.0.0",
+    "typescript": "^5.0.0"
+  }
+}

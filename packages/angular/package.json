@@ -1,0 +1,23 @@
+{
+  "name": "@oulds/angular",
+  "version": "0.1.0",
+  "description": "Angular wrappers for the Oulds design system",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@oulds/components": "workspace:*"
+  },
+  "peerDependencies": {
+    "@angular/core": ">=15",
+    "@angular/common": ">=15"
+  },
+  "devDependencies": {
+    "@stencil/angular-output-target": "^0.8.0",
+    "typescript": "^5.0.0"
+  }
+}

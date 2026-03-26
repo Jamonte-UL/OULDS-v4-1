@@ -1,0 +1,18 @@
+{
+  "name": "@oulds/tokens",
+  "version": "0.1.0",
+  "description": "Design tokens for the Oulds design system",
+  "main": "dist/tokens.css",
+  "exports": {
+    "./css": "./dist/tokens.css",
+    "./js": "./dist/tokens.js"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "style-dictionary build --config style-dictionary.config.json",
+    "dev": "style-dictionary build --config style-dictionary.config.json --watch"
+  },
+  "devDependencies": {
+    "style-dictionary": "^4.0.0"
+  }
+}

@@ -1,0 +1,17 @@
+I have an existing design system I want to migrate into a new one 
+already scaffolded at [path]. 
+
+Read both codebases, then:
+1. Audit the old DS — list all components, their props/variants, and any tokens
+2. Identify what maps cleanly to the new system vs what needs rethinking
+3. Propose a migration order (foundations first, then components)
+
+Don't migrate anything yet — just give me the audit.
+If the old DS will continue running while the new one is built in parallel:
+
+//This is a "strangler fig" approach — new products use the new DS, old products stay on the old one until they're migrated one by one. In that case the prompt would focus on parity:
+
+
+The old DS has these components: [list]. 
+Build equivalents in the new system that match the same API surface 
+so consuming teams can swap with minimal changes.

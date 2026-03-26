@@ -1,0 +1,10 @@
+node_modules
+dist
+loader
+custom-elements
+.turbo
+*.local
+.DS_Store
+CLAUDE.local.md
+.claude/settings.local.json
+**/.claude/settings.local.json
