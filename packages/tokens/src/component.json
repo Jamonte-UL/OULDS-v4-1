@@ -1,10 +1,94 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
   "button": {
-    "background":        { "$value": "{color.brand.primary}",   "$type": "color" },
-    "background-hover":  { "$value": "{color.brand.secondary}", "$type": "color" },
-    "text":              { "$value": "{color.text.inverse}",    "$type": "color" },
-    "padding-x":         { "$value": "{spacing.4}",             "$type": "dimension" },
-    "padding-y":         { "$value": "{spacing.2}",             "$type": "dimension" }
+    "radius": { "$type": "number", "$value": "{radius.md}" },
+    "gap": { "$type": "number", "$value": "{spacing.2}" },
+    "padding-x": {
+      "sm": { "$type": "number", "$value": "{spacing.3}" },
+      "md": { "$type": "number", "$value": "{spacing.4}" },
+      "lg": { "$type": "number", "$value": "{spacing.6}" }
+    },
+    "padding-y": {
+      "sm": { "$type": "number", "$value": "{spacing.1}" },
+      "md": { "$type": "number", "$value": "{spacing.2}" },
+      "lg": { "$type": "number", "$value": "{spacing.3}" }
+    },
+    "height": {
+      "sm": { "$type": "number", "$value": "{spacing.8}" },
+      "md": { "$type": "number", "$value": "{spacing.10}" },
+      "lg": { "$type": "number", "$value": "{spacing.12}" }
+    },
+    "font-size": {
+      "sm": { "$type": "number", "$value": "{fontSize.sm}" },
+      "md": { "$type": "number", "$value": "{fontSize.base}" },
+      "lg": { "$type": "number", "$value": "{fontSize.lg}" }
+    }
+  },
+  "input": {
+    "padding-x": { "$type": "number", "$value": "{spacing.3}" },
+    "padding-y": { "$type": "number", "$value": "{spacing.2}" },
+    "font-size": { "$type": "number", "$value": "{fontSize.base}" },
+    "radius": { "$type": "number", "$value": "{radius.md}" },
+    "border-width": { "$type": "number", "$value": "{borderWidth.1}" },
+    "height": {
+      "sm": { "$type": "number", "$value": "{spacing.8}" },
+      "md": { "$type": "number", "$value": "{spacing.10}" },
+      "lg": { "$type": "number", "$value": "{spacing.12}" }
+    }
+  },
+  "card": {
+    "radius": { "$type": "number", "$value": "{radius.lg}" },
+    "padding": {
+      "sm": { "$type": "number", "$value": "{spacing.4}" },
+      "md": { "$type": "number", "$value": "{spacing.6}" },
+      "lg": { "$type": "number", "$value": "{spacing.8}" }
+    }
+  },
+  "modal": {
+    "padding": { "$type": "number", "$value": "{spacing.6}" },
+    "radius": { "$type": "number", "$value": "{radius.xl}" },
+    "width": {
+      "sm": { "$type": "number", "$value": 400 },
+      "md": { "$type": "number", "$value": 560 },
+      "lg": { "$type": "number", "$value": 720 },
+      "xl": { "$type": "number", "$value": 960 }
+    }
+  },
+  "icon": {
+    "size": {
+      "xs": { "$type": "number", "$value": "{spacing.3}" },
+      "sm": { "$type": "number", "$value": "{spacing.4}" },
+      "md": { "$type": "number", "$value": "{spacing.5}" },
+      "lg": { "$type": "number", "$value": "{spacing.6}" },
+      "xl": { "$type": "number", "$value": "{spacing.8}" }
+    }
+  },
+  "avatar": {
+    "radius": { "$type": "number", "$value": "{radius.full}" },
+    "size": {
+      "xs": { "$type": "number", "$value": "{spacing.6}" },
+      "sm": { "$type": "number", "$value": "{spacing.8}" },
+      "md": { "$type": "number", "$value": "{spacing.10}" },
+      "lg": { "$type": "number", "$value": "{spacing.12}" },
+      "xl": { "$type": "number", "$value": "{spacing.16}" }
+    }
+  },
+  "badge": {
+    "padding-x": { "$type": "number", "$value": "{spacing.2}" },
+    "padding-y": { "$type": "number", "$value": "{spacing.1}" },
+    "font-size": { "$type": "number", "$value": "{fontSize.xs}" },
+    "radius": { "$type": "number", "$value": "{radius.full}" }
+  },
+  "tooltip": {
+    "padding-x": { "$type": "number", "$value": "{spacing.3}" },
+    "padding-y": { "$type": "number", "$value": "{spacing.2}" },
+    "font-size": { "$type": "number", "$value": "{fontSize.sm}" },
+    "radius": { "$type": "number", "$value": "{radius.md}" },
+    "max-width": { "$type": "number", "$value": 280 }
+  },
+  "toast": {
+    "padding": { "$type": "number", "$value": "{spacing.4}" },
+    "radius": { "$type": "number", "$value": "{radius.lg}" },
+    "max-width": { "$type": "number", "$value": 400 }
   }
 }

@@ -1,5 +1,6 @@
 {
   "source": ["src/**/*.json"],
+  "preprocessors": ["dtcg"],
   "platforms": {
     "css": {
       "transformGroup": "css",

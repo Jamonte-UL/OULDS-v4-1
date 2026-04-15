@@ -1,0 +1,11 @@
+{
+  "skill_name": "token-reviewer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Audit Value.tokens-v2.json and CSS for gaps and inefficiencies, then generate token-report.md.",
+      "expected_output": "Generates token-report.md with Version v1 and prioritized recommendations.",
+      "files": []
+    }
+  ]
+}

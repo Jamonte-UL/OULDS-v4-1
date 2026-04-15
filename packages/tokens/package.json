@@ -9,8 +9,8 @@
   },
   "files": ["dist"],
   "scripts": {
-    "build": "style-dictionary build --config style-dictionary.config.json",
-    "dev": "style-dictionary build --config style-dictionary.config.json --watch"
+    "build": "style-dictionary build --config style-dictionary.config.js",
+    "dev": "style-dictionary build --config style-dictionary.config.js --watch"
   },
   "devDependencies": {
     "style-dictionary": "^4.0.0"
