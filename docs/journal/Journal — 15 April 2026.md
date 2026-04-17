@@ -2,7 +2,7 @@
 
 ## TL;DR
 
-Token files exported from Figma contained hardcoded values instead of alias references, breaking the 3-tier chain. We rewrote all three files to W3C DTCG format, imported them via Tokens Studio, and confirmed 569 variables live in Figma with a working Primitive → Semantic → Component alias chain. We also filled three missing token groups (typography, elevation, motion) identified during an audit.
+Token files exported to Figma contained hardcoded values instead of alias references, breaking the 3-tier chain. We rewrote all three files to W3C DTCG format, imported them via Tokens Studio, and confirmed 569 variables live in Figma with a working Primitive → Semantic → Component alias chain. We also filled three missing token groups (typography, elevation, motion) identified during an audit.
 
 ---
 

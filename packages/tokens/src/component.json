@@ -1,29 +1,76 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
   "button": {
-    "radius": { "$type": "number", "$value": "{radius.md}" },
-    "gap": { "$type": "number", "$value": "{spacing.2}" },
-    "padding-x": {
-      "sm": { "$type": "number", "$value": "{spacing.3}" },
-      "md": { "$type": "number", "$value": "{spacing.4}" },
-      "lg": { "$type": "number", "$value": "{spacing.6}" }
-    },
-    "padding-y": {
-      "sm": { "$type": "number", "$value": "{spacing.1}" },
-      "md": { "$type": "number", "$value": "{spacing.2}" },
-      "lg": { "$type": "number", "$value": "{spacing.3}" }
-    },
-    "height": {
-      "sm": { "$type": "number", "$value": "{spacing.8}" },
-      "md": { "$type": "number", "$value": "{spacing.10}" },
-      "lg": { "$type": "number", "$value": "{spacing.12}" }
-    },
-    "font-size": {
-      "sm": { "$type": "number", "$value": "{fontSize.sm}" },
-      "md": { "$type": "number", "$value": "{fontSize.base}" },
-      "lg": { "$type": "number", "$value": "{fontSize.lg}" }
-    }
+  "radius": { "$type": "number", "$value": "{radius.md}" },
+  "gap":    { "$type": "number", "$value": "{spacing.2}" },
+  "padding-x": {
+    "sm": { "$type": "number", "$value": "{spacing.3}" },
+    "md": { "$type": "number", "$value": "{spacing.4}" },
+    "lg": { "$type": "number", "$value": "{spacing.6}" }
   },
+  "padding-y": {
+    "sm": { "$type": "number", "$value": "{spacing.1}" },
+    "md": { "$type": "number", "$value": "{spacing.2}" },
+    "lg": { "$type": "number", "$value": "{spacing.3}" }
+  },
+  "height": {
+    "sm": { "$type": "number", "$value": "{spacing.8}" },
+    "md": { "$type": "number", "$value": "{spacing.10}" },
+    "lg": { "$type": "number", "$value": "{spacing.12}" }
+  },
+  "font-size": {
+    "sm": { "$type": "number", "$value": "{fontSize.sm}" },
+    "md": { "$type": "number", "$value": "{fontSize.base}" },
+    "lg": { "$type": "number", "$value": "{fontSize.lg}" }
+  },
+  "primary": {
+    "bg":              { "$type": "color", "$value": "{interactive.primary}" },
+    "bg-hover":        { "$type": "color", "$value": "{interactive.primary-hover}" },
+    "bg-active":       { "$type": "color", "$value": "{interactive.primary-active}" },
+    "bg-disabled":     { "$type": "color", "$value": "{interactive.primary-disabled}" },
+    "text":            { "$type": "color", "$value": "{text.inverse}" },
+    "text-disabled":   { "$type": "color", "$value": "{text.inverse}" },
+    "border":          { "$type": "color", "$value": "{interactive.primary}" },
+    "border-hover":    { "$type": "color", "$value": "{interactive.primary-hover}" },
+    "border-disabled": { "$type": "color", "$value": "{interactive.primary-disabled}" }
+  },
+  "secondary": {
+    "bg":              { "$type": "color", "$value": "{interactive.secondary}" },
+    "bg-hover":        { "$type": "color", "$value": "{interactive.secondary-hover}" },
+    "bg-active":       { "$type": "color", "$value": "{interactive.secondary-active}" },
+    "bg-disabled":     { "$type": "color", "$value": "{interactive.secondary-disabled}" },
+    "text":            { "$type": "color", "$value": "{text.primary}" },
+    "text-disabled":   { "$type": "color", "$value": "{text.muted}" },
+    "border":          { "$type": "color", "$value": "{border.default}" },
+    "border-hover":    { "$type": "color", "$value": "{border.strong}" },
+    "border-disabled": { "$type": "color", "$value": "{border.muted}" }
+  },
+  "destructive": {
+    "bg":              { "$type": "color", "$value": "{interactive.destructive}" },
+    "bg-hover":        { "$type": "color", "$value": "{interactive.destructive-hover}" },
+    "bg-active":       { "$type": "color", "$value": "{interactive.destructive-active}" },
+    "bg-disabled":     { "$type": "color", "$value": "{interactive.primary-disabled}" },
+    "text":            { "$type": "color", "$value": "{text.inverse}" },
+    "text-disabled":   { "$type": "color", "$value": "{text.inverse}" },
+    "border":          { "$type": "color", "$value": "{interactive.destructive}" },
+    "border-hover":    { "$type": "color", "$value": "{interactive.destructive-hover}" },
+    "border-disabled": { "$type": "color", "$value": "{interactive.primary-disabled}" }
+  },
+  "ghost": {
+    "bg":              { "$type": "color", "$value": "{color.transparent}" },
+    "bg-hover":        { "$type": "color", "$value": "{interactive.secondary-hover}" },
+    "bg-active":       { "$type": "color", "$value": "{interactive.secondary-active}" },
+    "bg-disabled":     { "$type": "color", "$value": "{color.transparent}" },
+    "text":            { "$type": "color", "$value": "{text.primary}" },
+    "text-hover":      { "$type": "color", "$value": "{text.primary}" },
+    "text-disabled":   { "$type": "color", "$value": "{text.muted}" },
+    "border":          { "$type": "color", "$value": "{color.transparent}" },
+    "border-hover":    { "$type": "color", "$value": "{border.default}" },
+    "border-disabled": { "$type": "color", "$value": "{color.transparent}" }
+  },
+  "focus-ring-color": { "$type": "color",  "$value": "{focus.ring-color}" },
+  "focus-ring-width": { "$type": "number", "$value": "{focus.ring-width}" }
+},
   "input": {
     "padding-x": { "$type": "number", "$value": "{spacing.3}" },
     "padding-y": { "$type": "number", "$value": "{spacing.2}" },
