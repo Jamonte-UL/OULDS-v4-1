@@ -27,7 +27,7 @@ StyleDictionary.registerTransform({
 });
 
 export default {
-  source: ['src/**/*.json'],
+  source: ['src/primitive.json', 'src/semantic/light.json', 'src/component.json'],
   preprocessors: ['dtcg'],
   platforms: {
     css: {

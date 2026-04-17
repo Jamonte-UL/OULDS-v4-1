@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { changelog, type ChangeType } from '../changelog'
 import { CopyButton } from '../components/CopyButton'
-import { flattenTokens, primitiveTokens, semanticTokens, componentTokens, type TokenNode } from '../tokens'
+import { flattenTokens, primitiveTokens, lightTokens, darkTokens, componentTokens, type TokenNode } from '../tokens'
 
 interface Props {
   search: string
@@ -36,7 +36,8 @@ export function ChangelogTab({ search, darkMode }: Props) {
   const totalTokens = useMemo(() => {
     const count = (
       flattenTokens(primitiveTokens as unknown as TokenNode).length +
-      flattenTokens(semanticTokens as unknown as TokenNode).length +
+      flattenTokens(lightTokens as unknown as TokenNode).length +
+      flattenTokens(darkTokens as unknown as TokenNode).length +
       flattenTokens(componentTokens as unknown as TokenNode).length
     )
     return count

@@ -1,23 +1,30 @@
 import primitiveTokens from '@tokens/primitive.json'
-import semanticTokens from '@tokens/semantic.json'
+import lightTokens from '@tokens/semantic/light.json'
+import darkTokens from '@tokens/semantic/dark.json'
 import componentTokens from '@tokens/component.json'
 
-export { primitiveTokens, semanticTokens, componentTokens }
+export { primitiveTokens, lightTokens, darkTokens, componentTokens }
 
 // Resolve alias like "{color.gray.700}" → "#3E3E3E"
+// Searches primitive → semantic/light in order (primitive aliases resolve first)
 export function resolveAlias(value: string): string {
   if (typeof value !== 'string') return String(value)
   const match = value.match(/^\{(.+)\}$/)
   if (!match) return value
   const path = match[1].split('.')
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let obj: any = primitiveTokens
-  for (const key of path) {
-    if (obj == null) return value
-    obj = obj[key]
-  }
-  if (obj && typeof obj === 'object' && '$value' in obj) {
-    return resolveAlias(obj.$value)
+  const sources: any[] = [primitiveTokens, lightTokens]
+  for (const source of sources) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let obj: any = source
+    let found = true
+    for (const key of path) {
+      if (obj == null || typeof obj !== 'object') { found = false; break }
+      obj = obj[key]
+    }
+    if (found && obj && typeof obj === 'object' && '$value' in obj) {
+      return resolveAlias(obj.$value)
+    }
   }
   return value
 }
@@ -65,10 +72,8 @@ export type SemanticRow = {
 // Flatten semantic tokens pairing light+dark
 export function flattenSemantic(): SemanticRow[] {
   const rows: SemanticRow[] = []
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const light = (semanticTokens as any).light as TokenNode
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const dark = (semanticTokens as any).dark as TokenNode
+  const light = lightTokens as unknown as TokenNode
+  const dark = darkTokens as unknown as TokenNode
 
   function walk(lightObj: TokenNode, darkObj: TokenNode | undefined, prefix: string) {
     for (const [key, val] of Object.entries(lightObj)) {
