@@ -13,6 +13,10 @@
       "$type": "color",
       "$value": "{color.gray.500}"
     },
+    "disabled": {
+      "$type": "color",
+      "$value": "{color.gray.400}"
+    },
     "inverse": {
       "$type": "color",
       "$value": "{color.white}"
@@ -103,7 +107,7 @@
   "border": {
     "default": {
       "$type": "color",
-      "$value": "{color.gray.200}"
+      "$value": "{color.gray.300}"
     },
     "muted": {
       "$type": "color",

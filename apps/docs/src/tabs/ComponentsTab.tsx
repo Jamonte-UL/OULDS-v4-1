@@ -138,44 +138,101 @@ function ComponentPreview({
   const previewBg = darkMode ? '#1f2937' : '#f9fafb'
 
   if (component === 'button') {
-    const paddingX = resolveNum(tokens['padding-x']?.md?.['$value'] ?? '16')
-    const paddingY = resolveNum(tokens['padding-y']?.md?.['$value'] ?? '8')
+    const px = resolveNum(tokens['padding-x']?.md?.['$value'] ?? '16')
+    const py = resolveNum(tokens['padding-y']?.md?.['$value'] ?? '8')
     const radius = resolveNum(tokens['radius']?.['$value'] ?? '8')
-    const fontSize = resolveNum(tokens['font-size']?.md?.['$value'] ?? '16')
-    const height = resolveNum(tokens['height']?.md?.['$value'] ?? '40')
+    const fs = resolveNum(tokens['font-size']?.md?.['$value'] ?? '16')
+    const h = resolveNum(tokens['height']?.md?.['$value'] ?? '40')
+
+    const resolve = (path: string) => {
+      const [group, key] = path.split('/')
+      return resolveAlias(tokens[group]?.[key]?.['$value'] ?? '')
+    }
+
+    const variants: Array<{
+      label: string
+      states: Array<{ label: string; bg: string; border: string; color: string; opacity?: number }>
+    }> = [
+      {
+        label: 'Primary',
+        states: [
+          { label: 'Default',  bg: resolve('primary/bg'),          border: resolve('primary/border'),          color: resolve('primary/text') },
+          { label: 'Hover',    bg: resolve('primary/bg-hover'),     border: resolve('primary/border-hover'),    color: resolve('primary/text') },
+          { label: 'Active',   bg: resolve('primary/bg-active'),    border: resolve('primary/border-hover'),    color: resolve('primary/text') },
+          { label: 'Disabled', bg: resolve('primary/bg-disabled'),  border: resolve('primary/border-disabled'), color: resolve('primary/text-disabled'), opacity: 0.6 },
+          { label: 'Focus',    bg: resolve('primary/bg'),           border: resolve('focus-ring-color'),        color: resolve('primary/text') },
+        ],
+      },
+      {
+        label: 'Secondary',
+        states: [
+          { label: 'Default',  bg: 'transparent',                          border: resolve('secondary/border'),          color: resolve('secondary/text') },
+          { label: 'Hover',    bg: resolve('secondary/bg-hover'),           border: resolve('secondary/border-hover'),    color: resolve('secondary/text') },
+          { label: 'Active',   bg: resolve('secondary/bg-active'),          border: resolve('secondary/border-hover'),    color: resolve('secondary/text') },
+          { label: 'Disabled', bg: resolve('secondary/bg-disabled'),        border: resolve('secondary/border-disabled'), color: resolve('secondary/text-disabled'), opacity: 0.6 },
+          { label: 'Focus',    bg: 'transparent',                          border: resolve('focus-ring-color'),          color: resolve('secondary/text') },
+        ],
+      },
+      {
+        label: 'Destructive',
+        states: [
+          { label: 'Default',  bg: resolve('destructive/bg'),          border: resolve('destructive/border'),          color: resolve('destructive/text') },
+          { label: 'Hover',    bg: resolve('destructive/bg-hover'),     border: resolve('destructive/border-hover'),    color: resolve('destructive/text') },
+          { label: 'Active',   bg: resolve('destructive/bg-active'),    border: resolve('destructive/border'),          color: resolve('destructive/text') },
+          { label: 'Disabled', bg: resolve('destructive/bg-disabled'),  border: resolve('destructive/border-disabled'), color: resolve('destructive/text-disabled'), opacity: 0.6 },
+          { label: 'Focus',    bg: resolve('destructive/bg'),           border: resolve('focus-ring-color'),            color: resolve('destructive/text') },
+        ],
+      },
+      {
+        label: 'Ghost',
+        states: [
+          { label: 'Default',  bg: 'transparent',                    border: 'transparent',                      color: resolve('ghost/text') },
+          { label: 'Hover',    bg: resolve('ghost/bg-hover'),         border: resolve('ghost/border-hover'),      color: resolve('ghost/text') },
+          { label: 'Active',   bg: resolve('ghost/bg-active'),        border: resolve('ghost/border-hover'),      color: resolve('ghost/text') },
+          { label: 'Disabled', bg: 'transparent',                    border: 'transparent',                      color: resolve('ghost/text-disabled'), opacity: 0.6 },
+          { label: 'Focus',    bg: 'transparent',                    border: resolve('focus-ring-color'),        color: resolve('ghost/text') },
+        ],
+      },
+    ]
+
+    const sharedStyle = (bg: string, border: string, color: string, opacity?: number) => ({
+      paddingLeft: px, paddingRight: px, paddingTop: py, paddingBottom: py,
+      borderRadius: radius, fontSize: fs, height: h,
+      backgroundColor: bg,
+      border: `1px solid ${border}`,
+      color,
+      opacity: opacity ?? 1,
+      cursor: 'default',
+      fontFamily: 'inherit',
+      fontWeight: 500,
+    })
 
     return (
-      <div className="flex flex-wrap gap-4 items-end">
-        {(['sm', 'md', 'lg'] as const).map(size => {
-          const px = resolveNum(tokens['padding-x']?.[size]?.['$value'] ?? paddingX.toString())
-          const py = resolveNum(tokens['padding-y']?.[size]?.['$value'] ?? paddingY.toString())
-          const fs = resolveNum(tokens['font-size']?.[size]?.['$value'] ?? fontSize.toString())
-          const h = resolveNum(tokens['height']?.[size]?.['$value'] ?? height.toString())
-          return (
-            <div key={size} className="flex flex-col items-center gap-2">
-              <button
-                style={{
-                  paddingLeft: px,
-                  paddingRight: px,
-                  paddingTop: py,
-                  paddingBottom: py,
-                  borderRadius: radius,
-                  fontSize: fs,
-                  height: h,
-                  backgroundColor: '#005999',
-                  color: '#fff',
-                  border: 'none',
-                  cursor: 'default',
-                  fontFamily: 'inherit',
-                  fontWeight: 500,
-                }}
-              >
-                Button
-              </button>
-              <span className={`text-xs font-mono ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>{size}</span>
-            </div>
-          )
-        })}
+      <div className="overflow-x-auto">
+        <table className="text-xs font-mono w-full border-collapse">
+          <thead>
+            <tr>
+              <th className={`text-left pr-4 pb-3 font-normal ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>Variant</th>
+              {['Default', 'Hover', 'Active', 'Disabled', 'Focus'].map(s => (
+                <th key={s} className={`text-center pb-3 px-3 font-normal ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>{s}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {variants.map(v => (
+              <tr key={v.label}>
+                <td className={`pr-4 py-3 font-mono text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{v.label}</td>
+                {v.states.map(s => (
+                  <td key={s.label} className="px-3 py-3 text-center">
+                    <button style={sharedStyle(s.bg, s.border, s.color, s.opacity)}>
+                      Button
+                    </button>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     )
   }

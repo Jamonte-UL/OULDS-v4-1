@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OULDS Button — Design Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── OULDS Resolved Tokens ────────────────────────────── */
+    :root {
+      /* primitives */
+      --blue-500: #0A99FF;
+      --blue-600: #005999;
+      --blue-700: #004D85;
+      --blue-800: #00406D;
+      --red-600:  #E12D33;
+      --red-700:  #BD1F24;
+      --red-800:  #9C1C21;
+      --gray-50:  #FAFAFA;
+      --gray-100: #F5F5F5;
+      --gray-200: #E6E6E6;
+      --gray-300: #D3D3D3;
+      --gray-400: #A8A8A8;
+      --gray-500: #7D7D7D;
+      --gray-600: #5E5E5E;
+      --gray-700: #3E3E3E;
+      --gray-900: #1A1A1A;
+      --white:    #FFFFFF;
+
+      /* semantic */
+      --text-primary:   var(--gray-700);
+      --text-inverse:   var(--white);
+      --text-muted:     var(--gray-500);
+      --border-default: var(--gray-200);
+      --border-strong:  var(--gray-400);
+      --border-muted:   var(--gray-100);
+      --focus-ring:     var(--blue-500);
+
+      /* component — primary */
+      --btn-primary-bg:              var(--blue-600);
+      --btn-primary-bg-hover:        var(--blue-700);
+      --btn-primary-bg-active:       var(--blue-800);
+      --btn-primary-bg-disabled:     var(--gray-200);
+      --btn-primary-text:            var(--white);
+      --btn-primary-text-disabled:   var(--white);
+      --btn-primary-border:          var(--blue-600);
+      --btn-primary-border-hover:    var(--blue-700);
+      --btn-primary-border-disabled: var(--gray-200);
+
+      /* component — secondary (current: gray.200 fill) */
+      --btn-secondary-bg:              var(--gray-200);
+      --btn-secondary-bg-hover:        var(--gray-300);
+      --btn-secondary-bg-active:       var(--gray-400);
+      --btn-secondary-bg-disabled:     var(--gray-100);
+      --btn-secondary-text:            var(--gray-700);
+      --btn-secondary-text-disabled:   var(--gray-400);
+      --btn-secondary-border:          var(--gray-200);
+      --btn-secondary-border-hover:    var(--gray-400);
+      --btn-secondary-border-disabled: var(--gray-100);
+
+      /* component — secondary ALT (proposed: transparent) */
+      --btn-secondary-alt-bg:              transparent;
+      --btn-secondary-alt-bg-hover:        var(--gray-100);
+      --btn-secondary-alt-bg-active:       var(--gray-200);
+      --btn-secondary-alt-bg-disabled:     transparent;
+      --btn-secondary-alt-text:            var(--gray-700);
+      --btn-secondary-alt-text-disabled:   var(--gray-400);
+      --btn-secondary-alt-border:          var(--gray-300);
+      --btn-secondary-alt-border-hover:    var(--gray-400);
+      --btn-secondary-alt-border-disabled: var(--gray-200);
+
+      /* component — destructive */
+      --btn-destructive-bg:              var(--red-600);
+      --btn-destructive-bg-hover:        var(--red-700);
+      --btn-destructive-bg-active:       var(--red-800);
+      --btn-destructive-bg-disabled:     var(--gray-200);
+      --btn-destructive-text:            var(--white);
+      --btn-destructive-border:          var(--red-600);
+      --btn-destructive-border-hover:    var(--red-700);
+      --btn-destructive-border-disabled: var(--gray-200);
+
+      /* component — ghost */
+      --btn-ghost-bg:              transparent;
+      --btn-ghost-bg-hover:        var(--gray-100);
+      --btn-ghost-bg-active:       var(--gray-200);
+      --btn-ghost-bg-disabled:     transparent;
+      --btn-ghost-text:            var(--gray-700);
+      --btn-ghost-text-disabled:   var(--gray-400);
+      --btn-ghost-border:          transparent;
+      --btn-ghost-border-hover:    var(--gray-200);
+      --btn-ghost-border-disabled: transparent;
+
+      /* sizing */
+      --btn-radius: 6px;
+      --btn-px: 16px;
+      --btn-py: 8px;
+      --btn-height: 40px;
+      --btn-gap: 8px;
+
+      /* easing */
+      --ease-btn: cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-700);
+      min-height: 100vh;
+      padding: 48px 32px;
+      animation: fadeUp 0.4s var(--ease-btn) both;
+    }
+
+    /* ── Page Header ─────────────────────────────────────── */
+    .page-header {
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--gray-200);
+      padding-bottom: 24px;
+    }
+    .page-header h1 {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 8px;
+      font-family: 'DM Mono', monospace;
+    }
+    .page-header h2 {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--gray-900);
+    }
+
+    /* ── Section ─────────────────────────────────────────── */
+    .section {
+      margin-bottom: 56px;
+    }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gray-200);
+    }
+
+    /* ── State Grid ──────────────────────────────────────── */
+    .state-grid {
+      display: grid;
+      grid-template-columns: 80px repeat(5, 1fr);
+      gap: 0;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      overflow: hidden;
+      background: white;
+    }
+    .state-grid-header {
+      display: contents;
+    }
+    .col-header {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      padding: 12px 16px;
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .col-header:first-child {
+      border-right: 1px solid var(--gray-200);
+    }
+    .row {
+      display: contents;
+    }
+    .row-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      padding: 20px 16px;
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-200);
+      border-right: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+    }
+    .row:last-child .row-label,
+    .row:last-child .cell {
+      border-bottom: none;
+    }
+    .cell {
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    /* ── Base Button ─────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--btn-gap);
+      height: var(--btn-height);
+      padding: var(--btn-py) var(--btn-px);
+      border-radius: var(--btn-radius);
+      border: 1px solid transparent;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1;
+      cursor: pointer;
+      transition:
+        background 120ms var(--ease-btn),
+        border-color 120ms var(--ease-btn),
+        box-shadow 120ms var(--ease-btn),
+        color 120ms var(--ease-btn);
+      outline: none;
+      white-space: nowrap;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+
+
+    /* ── Primary ──────────────────────────────────────────── */
+    .btn-primary {
+      background: var(--btn-primary-bg);
+      border-color: var(--btn-primary-border);
+      color: var(--btn-primary-text);
+    }
+    .btn-primary:not(:disabled):hover,
+    .btn-primary.state-hover {
+      background: var(--btn-primary-bg-hover);
+      border-color: var(--btn-primary-border-hover);
+    }
+    .btn-primary:not(:disabled):active,
+    .btn-primary.state-active {
+      background: var(--btn-primary-bg-active);
+      border-color: var(--btn-primary-bg-active);
+    }
+    .btn-primary:disabled,
+    .btn-primary.state-disabled {
+      background: var(--btn-primary-bg-disabled);
+      border-color: var(--btn-primary-border-disabled);
+      color: var(--text-muted);
+      cursor: not-allowed;
+      opacity: 1;
+    }
+    .btn-primary:focus-visible,
+    .btn-primary.state-focus {
+      background: var(--btn-primary-bg);
+      border-color: var(--btn-primary-border);
+      box-shadow: 0 0 0 3px var(--focus-ring);
+    }
+
+    /* ── Secondary (current) ─────────────────────────────── */
+    .btn-secondary {
+      background: var(--btn-secondary-bg);
+      border-color: var(--btn-secondary-border);
+      color: var(--btn-secondary-text);
+    }
+    .btn-secondary:not(:disabled):hover,
+    .btn-secondary.state-hover {
+      background: var(--btn-secondary-bg-hover);
+      border-color: var(--btn-secondary-border-hover);
+    }
+    .btn-secondary:not(:disabled):active,
+    .btn-secondary.state-active {
+      background: var(--btn-secondary-bg-active);
+      border-color: var(--btn-secondary-bg-active);
+    }
+    .btn-secondary:disabled,
+    .btn-secondary.state-disabled {
+      background: var(--btn-secondary-bg-disabled);
+      border-color: var(--btn-secondary-border-disabled);
+      color: var(--btn-secondary-text-disabled);
+      cursor: not-allowed;
+    }
+    .btn-secondary:focus-visible,
+    .btn-secondary.state-focus {
+      background: var(--btn-secondary-bg);
+      border-color: var(--btn-secondary-border);
+      box-shadow: 0 0 0 3px var(--focus-ring);
+    }
+
+    /* ── Secondary ALT (proposed transparent) ──────────────── */
+    .btn-secondary-alt {
+      background: var(--btn-secondary-alt-bg);
+      border-color: var(--btn-secondary-alt-border);
+      color: var(--btn-secondary-alt-text);
+    }
+    .btn-secondary-alt:not(:disabled):hover,
+    .btn-secondary-alt.state-hover {
+      background: var(--btn-secondary-alt-bg-hover);
+      border-color: var(--btn-secondary-alt-border-hover);
+    }
+    .btn-secondary-alt:not(:disabled):active,
+    .btn-secondary-alt.state-active {
+      background: var(--btn-secondary-alt-bg-active);
+      border-color: var(--btn-secondary-alt-bg-active);
+    }
+    .btn-secondary-alt:disabled,
+    .btn-secondary-alt.state-disabled {
+      background: var(--btn-secondary-alt-bg-disabled);
+      border-color: var(--btn-secondary-alt-border-disabled);
+      color: var(--btn-secondary-alt-text-disabled);
+      cursor: not-allowed;
+    }
+    .btn-secondary-alt:focus-visible,
+    .btn-secondary-alt.state-focus {
+      background: var(--btn-secondary-alt-bg);
+      border-color: var(--btn-secondary-alt-border);
+      box-shadow: 0 0 0 3px var(--focus-ring);
+    }
+
+    /* ── Destructive ─────────────────────────────────────── */
+    .btn-destructive {
+      background: var(--btn-destructive-bg);
+      border-color: var(--btn-destructive-border);
+      color: var(--white);
+    }
+    .btn-destructive:not(:disabled):hover,
+    .btn-destructive.state-hover {
+      background: var(--btn-destructive-bg-hover);
+      border-color: var(--btn-destructive-border-hover);
+    }
+    .btn-destructive:not(:disabled):active,
+    .btn-destructive.state-active {
+      background: var(--btn-destructive-bg-active);
+      border-color: var(--btn-destructive-bg-active);
+    }
+    .btn-destructive:disabled,
+    .btn-destructive.state-disabled {
+      background: var(--btn-destructive-bg-disabled);
+      border-color: var(--btn-destructive-border-disabled);
+      color: var(--text-muted);
+      cursor: not-allowed;
+    }
+    .btn-destructive:focus-visible,
+    .btn-destructive.state-focus {
+      background: var(--btn-destructive-bg);
+      border-color: var(--btn-destructive-border);
+      box-shadow: 0 0 0 3px rgba(225, 45, 51, 0.35);
+    }
+
+    /* ── Ghost ───────────────────────────────────────────── */
+    .btn-ghost {
+      background: var(--btn-ghost-bg);
+      border-color: var(--btn-ghost-border);
+      color: var(--btn-ghost-text);
+    }
+    .btn-ghost:not(:disabled):hover,
+    .btn-ghost.state-hover {
+      background: var(--btn-ghost-bg-hover);
+      border-color: var(--btn-ghost-border-hover);
+    }
+    .btn-ghost:not(:disabled):active,
+    .btn-ghost.state-active {
+      background: var(--btn-ghost-bg-active);
+      border-color: var(--btn-ghost-bg-active);
+    }
+    .btn-ghost:disabled,
+    .btn-ghost.state-disabled {
+      background: var(--btn-ghost-bg-disabled);
+      border-color: var(--btn-ghost-border-disabled);
+      color: var(--btn-ghost-text-disabled);
+      cursor: not-allowed;
+    }
+    .btn-ghost:focus-visible,
+    .btn-ghost.state-focus {
+      background: var(--btn-ghost-bg);
+      border-color: var(--btn-ghost-border);
+      box-shadow: 0 0 0 3px var(--focus-ring);
+    }
+
+    /* ── Playground ──────────────────────────────────────── */
+    .playground {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 12px;
+    }
+    .playground-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--gray-400);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .playground-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .hint {
+      font-size: 12px;
+      color: var(--gray-400);
+      margin-top: -8px;
+      font-style: italic;
+    }
+
+    /* ── State indicator tooltip ─────────────────────────── */
+    .cell-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+    .state-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      transition: color 150ms;
+    }
+
+    /* Pinned state cells shouldn't show hover lift */
+    .cell .btn { pointer-events: none; }
+
+    /* Only live playground buttons are interactive */
+    .live .btn { pointer-events: auto; }
+    .compare-panel {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .compare-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .compare-half {
+      padding: 28px 32px;
+    }
+    .compare-half:first-child {
+      border-right: 1px solid var(--gray-200);
+    }
+    .compare-half h3 {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 6px;
+    }
+    .compare-half p {
+      font-size: 12px;
+      color: var(--gray-500);
+      margin-bottom: 20px;
+    }
+    .compare-btns {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* ── Sizes demo ──────────────────────────────────────── */
+    .sizes-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 28px 32px;
+    }
+    .btn-sm {
+      height: 32px;
+      padding: 6px 12px;
+      font-size: 13px;
+    }
+    .btn-md {
+      height: 40px;
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+    .btn-lg {
+      height: 48px;
+      padding: 10px 24px;
+      font-size: 15px;
+    }
+
+    /* ── Note tag ────────────────────────────────────────── */
+    .note {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #EFF8FF;
+      color: #004D85;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .note-warning {
+      background: #FEF3C7;
+      color: #CC8600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <h1>OULDS · Button Component</h1>
+    <h2>Design Token Preview</h2>
+  </div>
+
+  <!-- LIVE PLAYGROUND -->
+  <div class="section">
+    <div class="section-label">Interactive Playground</div>
+    <div class="playground live">
+      <span class="playground-label">Try hovering and clicking — all states are live</span>
+      <div class="playground-row">
+        <button class="btn btn-primary">Save changes</button>
+        <button class="btn btn-secondary-alt">Cancel</button>
+        <button class="btn btn-ghost">Learn more</button>
+        <button class="btn btn-destructive">Delete</button>
+        <button class="btn btn-primary" disabled>Disabled</button>
+      </div>
+      <div class="playground-row">
+        <button class="btn btn-primary btn-sm">Small</button>
+        <button class="btn btn-primary btn-md">Medium</button>
+        <button class="btn btn-primary btn-lg">Large</button>
+      </div>
+      <p class="hint">Tab to focus · Space/Enter to activate · Click for ripple</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-label">Primary</div>
+    <div class="state-grid">
+      <div class="state-grid-header">
+        <div class="col-header"></div>
+        <div class="col-header">Default</div>
+        <div class="col-header">Hover</div>
+        <div class="col-header">Active</div>
+        <div class="col-header">Disabled</div>
+        <div class="col-header">Focus</div>
+      </div>
+      <div class="row">
+        <div class="row-label">Primary</div>
+        <div class="cell"><button class="btn btn-primary">Button</button></div>
+        <div class="cell"><button class="btn btn-primary state-hover">Button</button></div>
+        <div class="cell"><button class="btn btn-primary state-active">Button</button></div>
+        <div class="cell"><button class="btn btn-primary state-disabled" disabled>Button</button></div>
+        <div class="cell"><button class="btn btn-primary state-focus">Button</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECONDARY: SIDE BY SIDE COMPARISON -->
+  <div class="section">
+    <div class="section-label">Secondary — Style Decision</div>
+    <span class="note note-warning">⚑ Pending decision — choose one of these approaches</span>
+    <div class="compare-panel">
+      <div class="compare-row">
+        <div class="compare-half">
+          <h3>Current — Filled (gray.200)</h3>
+          <p>interactive.secondary = gray.200 (#E6E6E6)</p>
+          <div class="compare-btns">
+            <button class="btn btn-secondary">Default</button>
+            <button class="btn btn-secondary state-hover">Hover</button>
+            <button class="btn btn-secondary state-active">Active</button>
+            <button class="btn btn-secondary state-disabled" disabled>Disabled</button>
+            <button class="btn btn-secondary state-focus">Focus</button>
+          </div>
+        </div>
+        <div class="compare-half">
+          <h3>Proposed — Transparent (Atlassian-style)</h3>
+          <p>interactive.secondary = transparent (#00000000)</p>
+          <div class="compare-btns">
+            <button class="btn btn-secondary-alt">Default</button>
+            <button class="btn btn-secondary-alt state-hover">Hover</button>
+            <button class="btn btn-secondary-alt state-active">Active</button>
+            <button class="btn btn-secondary-alt state-disabled" disabled>Disabled</button>
+            <button class="btn btn-secondary-alt state-focus">Focus</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESTRUCTIVE -->
+  <div class="section">
+    <div class="section-label">Destructive</div>
+    <div class="state-grid">
+      <div class="state-grid-header">
+        <div class="col-header"></div>
+        <div class="col-header">Default</div>
+        <div class="col-header">Hover</div>
+        <div class="col-header">Active</div>
+        <div class="col-header">Disabled</div>
+        <div class="col-header">Focus</div>
+      </div>
+      <div class="row">
+        <div class="row-label">Destr.</div>
+        <div class="cell"><button class="btn btn-destructive">Delete</button></div>
+        <div class="cell"><button class="btn btn-destructive state-hover">Delete</button></div>
+        <div class="cell"><button class="btn btn-destructive state-active">Delete</button></div>
+        <div class="cell"><button class="btn btn-destructive state-disabled" disabled>Delete</button></div>
+        <div class="cell"><button class="btn btn-destructive state-focus">Delete</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GHOST -->
+  <div class="section">
+    <div class="section-label">Ghost</div>
+    <div class="state-grid">
+      <div class="state-grid-header">
+        <div class="col-header"></div>
+        <div class="col-header">Default</div>
+        <div class="col-header">Hover</div>
+        <div class="col-header">Active</div>
+        <div class="col-header">Disabled</div>
+        <div class="col-header">Focus</div>
+      </div>
+      <div class="row">
+        <div class="row-label">Ghost</div>
+        <div class="cell"><button class="btn btn-ghost">Button</button></div>
+        <div class="cell"><button class="btn btn-ghost state-hover">Button</button></div>
+        <div class="cell"><button class="btn btn-ghost state-active">Button</button></div>
+        <div class="cell"><button class="btn btn-ghost state-disabled" disabled>Button</button></div>
+        <div class="cell"><button class="btn btn-ghost state-focus">Button</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALL VARIANTS TOGETHER -->
+  <div class="section">
+    <div class="section-label">All Variants — Side by Side</div>
+    <div class="state-grid">
+      <div class="state-grid-header">
+        <div class="col-header"></div>
+        <div class="col-header">Default</div>
+        <div class="col-header">Hover</div>
+        <div class="col-header">Active</div>
+        <div class="col-header">Disabled</div>
+        <div class="col-header">Focus</div>
+      </div>
+      <div class="row">
+        <div class="row-label">Primary</div>
+        <div class="cell"><button class="btn btn-primary">Button</button></div>
+        <div class="cell"><button class="btn btn-primary state-hover">Button</button></div>
+        <div class="cell"><button class="btn btn-primary state-active">Button</button></div>
+        <div class="cell"><button class="btn btn-primary state-disabled" disabled>Button</button></div>
+        <div class="cell"><button class="btn btn-primary state-focus">Button</button></div>
+      </div>
+      <div class="row">
+        <div class="row-label">Secondary</div>
+        <div class="cell"><button class="btn btn-secondary-alt">Button</button></div>
+        <div class="cell"><button class="btn btn-secondary-alt state-hover">Button</button></div>
+        <div class="cell"><button class="btn btn-secondary-alt state-active">Button</button></div>
+        <div class="cell"><button class="btn btn-secondary-alt state-disabled" disabled>Button</button></div>
+        <div class="cell"><button class="btn btn-secondary-alt state-focus">Button</button></div>
+      </div>
+      <div class="row">
+        <div class="row-label">Destr.</div>
+        <div class="cell"><button class="btn btn-destructive">Delete</button></div>
+        <div class="cell"><button class="btn btn-destructive state-hover">Delete</button></div>
+        <div class="cell"><button class="btn btn-destructive state-active">Delete</button></div>
+        <div class="cell"><button class="btn btn-destructive state-disabled" disabled>Delete</button></div>
+        <div class="cell"><button class="btn btn-destructive state-focus">Delete</button></div>
+      </div>
+      <div class="row">
+        <div class="row-label">Ghost</div>
+        <div class="cell"><button class="btn btn-ghost">Button</button></div>
+        <div class="cell"><button class="btn btn-ghost state-hover">Button</button></div>
+        <div class="cell"><button class="btn btn-ghost state-active">Button</button></div>
+        <div class="cell"><button class="btn btn-ghost state-disabled" disabled>Button</button></div>
+        <div class="cell"><button class="btn btn-ghost state-focus">Button</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIZES -->
+  <div class="section">
+    <div class="section-label">Sizes</div>
+    <div class="sizes-row">
+      <button class="btn btn-primary btn-sm">Small</button>
+      <button class="btn btn-primary btn-md">Medium</button>
+      <button class="btn btn-primary btn-lg">Large</button>
+      <button class="btn btn-secondary-alt btn-sm">Small</button>
+      <button class="btn btn-secondary-alt btn-md">Medium</button>
+      <button class="btn btn-secondary-alt btn-lg">Large</button>
+    </div>
+  </div>
+
+
+</body>
+</html>

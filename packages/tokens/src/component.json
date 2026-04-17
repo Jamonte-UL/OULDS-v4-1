@@ -39,8 +39,8 @@
     "bg-hover":        { "$type": "color", "$value": "{interactive.secondary-hover}" },
     "bg-active":       { "$type": "color", "$value": "{interactive.secondary-active}" },
     "bg-disabled":     { "$type": "color", "$value": "{interactive.secondary-disabled}" },
-    "text":            { "$type": "color", "$value": "{text.primary}" },
-    "text-disabled":   { "$type": "color", "$value": "{text.muted}" },
+    "text":            { "$type": "color", "$value": "{text.secondary}" },
+    "text-disabled":   { "$type": "color", "$value": "{text.disabled}" },
     "border":          { "$type": "color", "$value": "{border.default}" },
     "border-hover":    { "$type": "color", "$value": "{border.strong}" },
     "border-disabled": { "$type": "color", "$value": "{border.muted}" }
@@ -63,7 +63,7 @@
     "bg-disabled":     { "$type": "color", "$value": "{color.transparent}" },
     "text":            { "$type": "color", "$value": "{text.primary}" },
     "text-hover":      { "$type": "color", "$value": "{text.primary}" },
-    "text-disabled":   { "$type": "color", "$value": "{text.muted}" },
+    "text-disabled":   { "$type": "color", "$value": "{text.disabled}" },
     "border":          { "$type": "color", "$value": "{color.transparent}" },
     "border-hover":    { "$type": "color", "$value": "{border.default}" },
     "border-disabled": { "$type": "color", "$value": "{color.transparent}" }
