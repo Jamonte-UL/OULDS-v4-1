@@ -149,7 +149,7 @@
     },
     "primary-disabled": {
       "$type": "color",
-      "$value": "{color.blue.300}"
+      "$value": "{color.gray.200}"
     },
     "secondary": {
       "$type": "color",
