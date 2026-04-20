@@ -149,9 +149,11 @@ function ComponentPreview({
       return resolveAlias(tokens[group]?.[key]?.['$value'] ?? '')
     }
 
+    const focusRing = resolve('focus-ring-color')
+
     const variants: Array<{
       label: string
-      states: Array<{ label: string; bg: string; border: string; color: string; opacity?: number }>
+      states: Array<{ label: string; bg: string; border: string; color: string; opacity?: number; focusRing?: string }>
     }> = [
       {
         label: 'Primary',
@@ -160,7 +162,7 @@ function ComponentPreview({
           { label: 'Hover',    bg: resolve('primary/bg-hover'),     border: resolve('primary/border-hover'),    color: resolve('primary/text') },
           { label: 'Active',   bg: resolve('primary/bg-active'),    border: resolve('primary/border-hover'),    color: resolve('primary/text') },
           { label: 'Disabled', bg: resolve('primary/bg-disabled'),  border: resolve('primary/border-disabled'), color: resolve('primary/text-disabled'), opacity: 0.6 },
-          { label: 'Focus',    bg: resolve('primary/bg'),           border: resolve('focus-ring-color'),        color: resolve('primary/text') },
+          { label: 'Focus',    bg: resolve('primary/bg'),           border: resolve('primary/border'),          color: resolve('primary/text'), focusRing },
         ],
       },
       {
@@ -170,7 +172,7 @@ function ComponentPreview({
           { label: 'Hover',    bg: resolve('secondary/bg-hover'),           border: resolve('secondary/border-hover'),    color: resolve('secondary/text') },
           { label: 'Active',   bg: resolve('secondary/bg-active'),          border: resolve('secondary/border-hover'),    color: resolve('secondary/text') },
           { label: 'Disabled', bg: resolve('secondary/bg-disabled'),        border: resolve('secondary/border-disabled'), color: resolve('secondary/text-disabled'), opacity: 0.6 },
-          { label: 'Focus',    bg: 'transparent',                          border: resolve('focus-ring-color'),          color: resolve('secondary/text') },
+          { label: 'Focus',    bg: 'transparent',                          border: resolve('secondary/border'),          color: resolve('secondary/text'), focusRing },
         ],
       },
       {
@@ -178,9 +180,9 @@ function ComponentPreview({
         states: [
           { label: 'Default',  bg: resolve('destructive/bg'),          border: resolve('destructive/border'),          color: resolve('destructive/text') },
           { label: 'Hover',    bg: resolve('destructive/bg-hover'),     border: resolve('destructive/border-hover'),    color: resolve('destructive/text') },
-          { label: 'Active',   bg: resolve('destructive/bg-active'),    border: resolve('destructive/border'),          color: resolve('destructive/text') },
+          { label: 'Active',   bg: resolve('destructive/bg-active'),    border: resolve('destructive/bg-active'),       color: resolve('destructive/text') },
           { label: 'Disabled', bg: resolve('destructive/bg-disabled'),  border: resolve('destructive/border-disabled'), color: resolve('destructive/text-disabled'), opacity: 0.6 },
-          { label: 'Focus',    bg: resolve('destructive/bg'),           border: resolve('focus-ring-color'),            color: resolve('destructive/text') },
+          { label: 'Focus',    bg: resolve('destructive/bg'),           border: resolve('destructive/border'),          color: resolve('destructive/text'), focusRing },
         ],
       },
       {
@@ -190,16 +192,37 @@ function ComponentPreview({
           { label: 'Hover',    bg: resolve('ghost/bg-hover'),         border: resolve('ghost/border-hover'),      color: resolve('ghost/text') },
           { label: 'Active',   bg: resolve('ghost/bg-active'),        border: resolve('ghost/border-hover'),      color: resolve('ghost/text') },
           { label: 'Disabled', bg: 'transparent',                    border: 'transparent',                      color: resolve('ghost/text-disabled'), opacity: 0.6 },
-          { label: 'Focus',    bg: 'transparent',                    border: resolve('focus-ring-color'),        color: resolve('ghost/text') },
+          { label: 'Focus',    bg: 'transparent',                    border: 'transparent',                      color: resolve('ghost/text'), focusRing },
+        ],
+      },
+      {
+        label: 'Success',
+        states: [
+          { label: 'Default',  bg: resolve('success/bg'),          border: resolve('success/border'),          color: resolve('success/text') },
+          { label: 'Hover',    bg: resolve('success/bg-hover'),     border: resolve('success/border-hover'),    color: resolve('success/text') },
+          { label: 'Active',   bg: resolve('success/bg-active'),    border: resolve('success/bg-active'),       color: resolve('success/text') },
+          { label: 'Disabled', bg: resolve('success/bg-disabled'),  border: resolve('success/border-disabled'), color: resolve('success/text-disabled'), opacity: 0.6 },
+          { label: 'Focus',    bg: resolve('success/bg'),           border: resolve('success/border'),          color: resolve('success/text'), focusRing },
+        ],
+      },
+      {
+        label: 'Warning',
+        states: [
+          { label: 'Default',  bg: resolve('warning/bg'),          border: resolve('warning/border'),          color: resolve('warning/text') },
+          { label: 'Hover',    bg: resolve('warning/bg-hover'),     border: resolve('warning/border-hover'),    color: resolve('warning/text') },
+          { label: 'Active',   bg: resolve('warning/bg-active'),    border: resolve('warning/bg-active'),       color: resolve('warning/text') },
+          { label: 'Disabled', bg: resolve('warning/bg-disabled'),  border: resolve('warning/border-disabled'), color: resolve('warning/text-disabled'), opacity: 0.6 },
+          { label: 'Focus',    bg: resolve('warning/bg'),           border: resolve('warning/border'),          color: resolve('warning/text'), focusRing },
         ],
       },
     ]
 
-    const sharedStyle = (bg: string, border: string, color: string, opacity?: number) => ({
+    const sharedStyle = (bg: string, border: string, color: string, opacity?: number, focusRing?: string) => ({
       paddingLeft: px, paddingRight: px, paddingTop: py, paddingBottom: py,
       borderRadius: radius, fontSize: fs, height: h,
       backgroundColor: bg,
       border: `1px solid ${border}`,
+      boxShadow: focusRing ? `0 0 0 2px #fff, 0 0 0 4px ${focusRing}` : 'none',
       color,
       opacity: opacity ?? 1,
       cursor: 'default',
@@ -223,8 +246,8 @@ function ComponentPreview({
               <tr key={v.label}>
                 <td className={`pr-4 py-3 font-mono text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{v.label}</td>
                 {v.states.map(s => (
-                  <td key={s.label} className="px-3 py-3 text-center">
-                    <button style={sharedStyle(s.bg, s.border, s.color, s.opacity)}>
+                  <td key={s.label} className={`px-3 py-3 text-center${s.focusRing ? ' px-5' : ''}`}>
+                    <button style={sharedStyle(s.bg, s.border, s.color, s.opacity, s.focusRing)}>
                       Button
                     </button>
                   </td>

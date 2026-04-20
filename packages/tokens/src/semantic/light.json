@@ -182,6 +182,30 @@
     "destructive-active": {
       "$type": "color",
       "$value": "{color.red.800}"
+    },
+    "success": {
+      "$type": "color",
+      "$value": "{color.green.600}"
+    },
+    "success-hover": {
+      "$type": "color",
+      "$value": "{color.green.700}"
+    },
+    "success-active": {
+      "$type": "color",
+      "$value": "{color.green.800}"
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "{color.orange.700}"
+    },
+    "warning-hover": {
+      "$type": "color",
+      "$value": "{color.orange.800}"
+    },
+    "warning-active": {
+      "$type": "color",
+      "$value": "{color.orange.900}"
     }
   },
   "accent": {

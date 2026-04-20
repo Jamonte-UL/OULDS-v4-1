@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OULDS Button Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: #f9fafb;
+      color: #1a1a1a;
+      padding: 40px;
+    }
+
+    h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+    .subtitle { font-size: 13px; color: #6b7280; margin-bottom: 40px; }
+
+    /* ── Table ── */
+    table { border-collapse: collapse; width: 100%; }
+    th {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      padding: 0 24px 12px;
+    }
+    th:first-child { text-align: left; padding-left: 0; }
+    td {
+      text-align: center;
+      padding: 10px 24px;
+      vertical-align: middle;
+    }
+    td:first-child { text-align: left; padding-left: 0; }
+    tr + tr td { border-top: 1px solid #f3f4f6; }
+
+    .variant-label {
+      font-size: 12px;
+      color: #6b7280;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* ── Tokens (resolved) ── */
+    /* Focus ring */
+    :root {
+      --focus-ring: #0a99ff;
+    }
+
+    /* ── Base button ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 8px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      cursor: default;
+      white-space: nowrap;
+    }
+
+    /* ── Primary ── */
+    .btn-primary-default   { background: #005999; border-color: #005999; color: #ffffff; }
+    .btn-primary-hover     { background: #004d85; border-color: #004d85; color: #ffffff; }
+    .btn-primary-active    { background: #00406d; border-color: #00406d; color: #ffffff; }
+    .btn-primary-disabled  { background: #e6e6e6; border-color: #e6e6e6; color: #a8a8a8; }
+    .btn-primary-focus     { background: #005999; border-color: #005999; color: #ffffff;
+                             box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--focus-ring); }
+
+    /* ── Secondary ── */
+    .btn-secondary-default  { background: transparent; border-color: #d3d3d3; color: #5e5e5e; }
+    .btn-secondary-hover    { background: #f5f5f5;    border-color: #a8a8a8; color: #5e5e5e; }
+    .btn-secondary-active   { background: #d3d3d3;    border-color: #a8a8a8; color: #5e5e5e; }
+    .btn-secondary-disabled { background: #f5f5f5;    border-color: #f5f5f5; color: #a8a8a8; }
+    .btn-secondary-focus    { background: transparent; border-color: #d3d3d3; color: #5e5e5e;
+                              box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--focus-ring); }
+
+    /* ── Destructive ── */
+    .btn-destructive-default  { background: #e12d33; border-color: #e12d33; color: #ffffff; }
+    .btn-destructive-hover    { background: #bd1f24; border-color: #bd1f24; color: #ffffff; }
+    .btn-destructive-active   { background: #9c1c21; border-color: #9c1c21; color: #ffffff; }
+    .btn-destructive-disabled { background: #e6e6e6; border-color: #e6e6e6; color: #a8a8a8; }
+    .btn-destructive-focus    { background: #e12d33; border-color: #e12d33; color: #ffffff;
+                                box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--focus-ring); }
+
+    /* ── Ghost ── */
+    .btn-ghost-default  { background: transparent; border-color: transparent; color: #3e3e3e; }
+    .btn-ghost-hover    { background: #f5f5f5;    border-color: #d3d3d3;    color: #3e3e3e; }
+    .btn-ghost-active   { background: #d3d3d3;    border-color: #d3d3d3;    color: #3e3e3e; }
+    .btn-ghost-disabled { background: transparent; border-color: transparent; color: #a8a8a8; }
+    .btn-ghost-focus    { background: transparent; border-color: transparent; color: #3e3e3e;
+                          box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--focus-ring); }
+
+    /* ── Success ── */
+    .btn-success-default  { background: #238424; border-color: #238424; color: #ffffff; }
+    .btn-success-hover    { background: #2A6D2D; border-color: #2A6D2D; color: #ffffff; }
+    .btn-success-active   { background: #265627; border-color: #265627; color: #ffffff; }
+    .btn-success-disabled { background: #e6e6e6; border-color: #e6e6e6; color: #a8a8a8; }
+    .btn-success-focus    { background: #238424; border-color: #238424; color: #ffffff;
+                            box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--focus-ring); }
+
+    /* ── Warning ── */
+    .btn-warning-default  { background: #CC8600; border-color: #CC8600; color: #ffffff; }
+    .btn-warning-hover    { background: #A66B00; border-color: #A66B00; color: #ffffff; }
+    .btn-warning-active   { background: #805200; border-color: #805200; color: #ffffff; }
+    .btn-warning-disabled { background: #e6e6e6; border-color: #e6e6e6; color: #a8a8a8; }
+    .btn-warning-focus    { background: #CC8600; border-color: #CC8600; color: #ffffff;
+                            box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--focus-ring); }
+
+    /* ── Section header ── */
+    .section { margin-bottom: 56px; }
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    /* ── Dark mode preview ── */
+    .dark-section {
+      background: #111827;
+      border-radius: 12px;
+      padding: 32px 40px;
+      margin-top: 40px;
+    }
+    .dark-section .section-title { color: #9ca3af; border-color: #374151; }
+    .dark-section th { color: #4b5563; }
+    .dark-section .variant-label { color: #6b7280; }
+    .dark-section tr + tr td { border-color: #1f2937; }
+    /* Focus ring white gap → use dark bg color */
+    .dark-section .btn-primary-focus,
+    .dark-section .btn-secondary-focus,
+    .dark-section .btn-destructive-focus,
+    .dark-section .btn-ghost-focus {
+      box-shadow: 0 0 0 2px #111827, 0 0 0 4px var(--focus-ring);
+    }
+
+    .token-note {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: 32px;
+      font-family: monospace;
+    }
+    .token-note span { color: #6b7280; }
+  </style>
+</head>
+<body>
+
+  <h1>OULDS Button Showcase</h1>
+  <p class="subtitle">4 variants × 5 states — resolved token values. Compare against Figma node 39:5.</p>
+
+  <!-- Light mode -->
+  <div class="section">
+    <div class="section-title">Light Mode</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Variant</th>
+          <th>Default</th>
+          <th>Hover</th>
+          <th>Active</th>
+          <th>Disabled</th>
+          <th>Focus</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="variant-label">Primary</span></td>
+          <td><button class="btn btn-primary-default">Button</button></td>
+          <td><button class="btn btn-primary-hover">Button</button></td>
+          <td><button class="btn btn-primary-active">Button</button></td>
+          <td><button class="btn btn-primary-disabled">Button</button></td>
+          <td><button class="btn btn-primary-focus">Button</button></td>
+        </tr>
+        <tr>
+          <td><span class="variant-label">Secondary</span></td>
+          <td><button class="btn btn-secondary-default">Button</button></td>
+          <td><button class="btn btn-secondary-hover">Button</button></td>
+          <td><button class="btn btn-secondary-active">Button</button></td>
+          <td><button class="btn btn-secondary-disabled">Button</button></td>
+          <td><button class="btn btn-secondary-focus">Button</button></td>
+        </tr>
+        <tr>
+          <td><span class="variant-label">Destructive</span></td>
+          <td><button class="btn btn-destructive-default">Button</button></td>
+          <td><button class="btn btn-destructive-hover">Button</button></td>
+          <td><button class="btn btn-destructive-active">Button</button></td>
+          <td><button class="btn btn-destructive-disabled">Button</button></td>
+          <td><button class="btn btn-destructive-focus">Button</button></td>
+        </tr>
+        <tr>
+          <td><span class="variant-label">Ghost</span></td>
+          <td><button class="btn btn-ghost-default">Button</button></td>
+          <td><button class="btn btn-ghost-hover">Button</button></td>
+          <td><button class="btn btn-ghost-active">Button</button></td>
+          <td><button class="btn btn-ghost-disabled">Button</button></td>
+          <td><button class="btn btn-ghost-focus">Button</button></td>
+        </tr>
+        <tr>
+          <td><span class="variant-label">Success</span></td>
+          <td><button class="btn btn-success-default">Button</button></td>
+          <td><button class="btn btn-success-hover">Button</button></td>
+          <td><button class="btn btn-success-active">Button</button></td>
+          <td><button class="btn btn-success-disabled">Button</button></td>
+          <td><button class="btn btn-success-focus">Button</button></td>
+        </tr>
+        <tr>
+          <td><span class="variant-label">Warning</span></td>
+          <td><button class="btn btn-warning-default">Button</button></td>
+          <td><button class="btn btn-warning-hover">Button</button></td>
+          <td><button class="btn btn-warning-active">Button</button></td>
+          <td><button class="btn btn-warning-disabled">Button</button></td>
+          <td><button class="btn btn-warning-focus">Button</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Dark mode -->
+  <div class="dark-section">
+    <div class="section-title">Dark Mode</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Variant</th>
+          <th>Default</th>
+          <th>Hover</th>
+          <th>Active</th>
+          <th>Disabled</th>
+          <th>Focus</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="variant-label">Primary</span></td>
+          <td><button class="btn btn-primary-default">Button</button></td>
+          <td><button class="btn btn-primary-hover">Button</button></td>
+          <td><button class="btn btn-primary-active">Button</button></td>
+          <td><button class="btn btn-primary-disabled">Button</button></td>
+          <td><button class="btn btn-primary-focus">Button</button></td>
+        </tr>
+        <tr>
+          <td><span class="variant-label">Secondary</span></td>
+          <td><button class="btn btn-secondary-default">Button</button></td>
+          <td><button class="btn btn-secondary-hover">Button</button></td>
+          <td><button class="btn btn-secondary-active">Button</button></td>
+          <td><button class="btn btn-secondary-disabled">Button</button></td>
+          <td><button class="btn btn-secondary-focus">Button</button></td>
+        </tr>
+        <tr>
+          <td><span class="variant-label">Destructive</span></td>
+          <td><button class="btn btn-destructive-default">Button</button></td>
+          <td><button class="btn btn-destructive-hover">Button</button></td>
+          <td><button class="btn btn-destructive-active">Button</button></td>
+          <td><button class="btn btn-destructive-disabled">Button</button></td>
+          <td><button class="btn btn-destructive-focus">Button</button></td>
+        </tr>
+        <tr>
+          <td><span class="variant-label">Ghost</span></td>
+          <td><button class="btn btn-ghost-default">Button</button></td>
+          <td><button class="btn btn-ghost-hover">Button</button></td>
+          <td><button class="btn btn-ghost-active">Button</button></td>
+          <td><button class="btn btn-ghost-disabled">Button</button></td>
+          <td><button class="btn btn-ghost-focus">Button</button></td>
+        </tr>
+        <tr>
+          <td><span class="variant-label">Success</span></td>
+          <td><button class="btn btn-success-default">Button</button></td>
+          <td><button class="btn btn-success-hover">Button</button></td>
+          <td><button class="btn btn-success-active">Button</button></td>
+          <td><button class="btn btn-success-disabled">Button</button></td>
+          <td><button class="btn btn-success-focus">Button</button></td>
+        </tr>
+        <tr>
+          <td><span class="variant-label">Warning</span></td>
+          <td><button class="btn btn-warning-default">Button</button></td>
+          <td><button class="btn btn-warning-hover">Button</button></td>
+          <td><button class="btn btn-warning-active">Button</button></td>
+          <td><button class="btn btn-warning-disabled">Button</button></td>
+          <td><button class="btn btn-warning-focus">Button</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="token-note">
+    <span>Colors from resolved tokens:</span>
+    primary=#005999 · hover=#004d85 · active=#00406d · disabled-bg=#e6e6e6 · disabled-text=#a8a8a8 ·
+    destructive=#e12d33 · dest-hover=#bd1f24 · dest-active=#9c1c21 ·
+    secondary-border=#d3d3d3 · secondary-text=#5e5e5e ·
+    ghost-text=#3e3e3e · focus-ring=#0a99ff
+  </p>
+
+</body>
+</html>

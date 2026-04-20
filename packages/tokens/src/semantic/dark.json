@@ -178,6 +178,30 @@
     "destructive-active": {
       "$type": "color",
       "$value": "{color.red.300}"
+    },
+    "success": {
+      "$type": "color",
+      "$value": "{color.green.400}"
+    },
+    "success-hover": {
+      "$type": "color",
+      "$value": "{color.green.300}"
+    },
+    "success-active": {
+      "$type": "color",
+      "$value": "{color.green.200}"
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "{color.orange.500}"
+    },
+    "warning-hover": {
+      "$type": "color",
+      "$value": "{color.orange.400}"
+    },
+    "warning-active": {
+      "$type": "color",
+      "$value": "{color.orange.300}"
     }
   },
   "accent": {
