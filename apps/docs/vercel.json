@@ -1,6 +1,0 @@
-{
-  "buildCommand": "cd ../.. && pnpm --filter @oulds/docs build",
-  "installCommand": "cd ../.. && pnpm install",
-  "outputDirectory": "dist",
-  "framework": "vite"
-}
