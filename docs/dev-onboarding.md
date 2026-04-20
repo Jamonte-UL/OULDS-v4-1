@@ -38,13 +38,27 @@ The goal: a design system where Figma designs and code stay in sync, tokens flow
 
 ## 2. Why are we rebuilding?
 
-The v3 system had three structural problems:
+The v3 system had serious structural problems — and a lot of accumulated debt:
 
-1. **Figma and code were disconnected.** Designers worked in Figma, developers worked in code, and the two drifted apart constantly.
+1. **Figma and code were disconnected.** Designers worked in Figma, developers worked in code, and the two drifted apart constantly. There was no automated sync, so discrepancies piled up over time.
 2. **2-tier tokens couldn't scale.** Without a semantic layer, there was no clean way to support theming, dark mode, or brand variants.
 3. **Framework coupling.** It was harder than it should have been for teams on different stacks to adopt the system.
+4. **Bugs and inconsistencies throughout.** The v3 component library had accumulated many bugs — incorrect token references, mismatched states between Figma and code, broken interactive states, and inconsistent naming. Some of these were never caught because there was no single source of truth to validate against.
+5. **Missing components.** Several components that products needed simply didn't exist in v3. Teams were building one-off implementations that diverged from any shared standard.
+6. **No discrepancy detection.** Without a structured token pipeline or Figma-to-code connection, there was no way to systematically find or prevent inconsistencies. Problems were only discovered when someone happened to notice them.
 
-v4 solves all three.
+### Why now? AI changes the equation
+
+A rebuild of this scope would normally take a large team months to execute. But this system has been architected from day one to leverage AI-assisted development:
+
+- **Figma MCP integration** — GitHub Copilot can read from and write to Figma directly, building component variants and binding variables programmatically instead of manually.
+- **Token pipeline automation** — AI can generate, audit, and correct tokens across all three tiers, catching inconsistencies that manual review would miss.
+- **Structured context files** — `CLAUDE.md`, journal entries, and skill files give AI assistants full project context, making them effective collaborators rather than generic code generators.
+- **Spec-driven generation** — The `requirements-to-specs-workflow.md` defines a pattern where structured specs feed directly into AI tools for high-quality code output.
+
+This means a small team (even one or two people) can move at a pace that would have required a much larger team without AI. The system isn't just *built with* AI — it's *designed for* ongoing AI-accelerated development.
+
+v4 solves all of the structural problems above and sets the project up for sustained velocity.
 
 ---
 
@@ -518,9 +532,9 @@ These are the priorities going forward, roughly in order:
 
 ### High priority
 
-1. **Build the first Stencil component (`ou-button`)** — Apply component tokens to a real Web Component. This validates the full pipeline: tokens → Stencil → wrapper generation → Storybook rendering.
+1. **Build the checkbox component (`ds-checkbox`)** — This is the first Stencil component to build end-to-end. It validates the full pipeline: tokens → Stencil → wrapper generation → Storybook rendering. **This must be completed before any v3 components are migrated or integrated** — it's the proof that the pipeline works correctly before we scale to the full library.
 
-2. **Add component tokens incrementally** — As each new component is built in Stencil, add its token group to `component.json`. Candidates: checkbox, radio, select, table, tabs, alert, progress, spinner.
+2. **Build remaining pilot components** — After the checkbox proves the pipeline, build `ds-button`, `ds-input`, and other foundational components. Add each component's token group to `component.json` as it's built. Candidates: radio, select, table, tabs, alert, progress, spinner.
 
 3. **Set up CI/CD** — GitHub Actions workflow to run `pnpm build` on PRs and fail if Style Dictionary or Stencil errors. Auto-deploy docs to Azure on `main`.
 
@@ -530,7 +544,7 @@ These are the priorities going forward, roughly in order:
 
 5. **Test framework wrappers** — Build a small test app in React, Vue, and Angular to verify the generated wrapper code works correctly.
 
-6. **OULDS-3 migration plan** — Audit the v3 codebase, produce a prioritized migration plan using the strangler fig pattern.
+6. **OULDS-3 migration plan** — Audit the v3 codebase, produce a prioritized migration plan using the strangler fig pattern. **Do not begin integrating any v3 components until the pilot components above have validated the pipeline.** The v3 system has known bugs and inconsistencies — bringing components over before the new pipeline is proven will just carry those problems forward.
 
 ### Lower priority
 
